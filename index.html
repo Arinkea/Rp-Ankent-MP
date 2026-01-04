@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RP Quest - Создание анкет для ролевых игр</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-dragon"></i> RP Quest</h1>
+            <p class="subtitle">Создание профессиональных анкет для ролевых игр</p>
+        </header>
+
+        <main>
+            <div class="creator-section">
+                <div class="form-container">
+                    <h2><i class="fas fa-user-edit"></i> Создание анкеты персонажа</h2>
+                    
+                    <div class="form-group">
+                        <label for="characterName"><i class="fas fa-user"></i> Имя персонажа:</label>
+                        <input type="text" id="characterName" placeholder="Введите имя персонажа">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterAge"><i class="fas fa-birthday-cake"></i> Возраст:</label>
+                        <input type="number" id="characterAge" placeholder="Возраст персонажа">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterWorld"><i class="fas fa-globe"></i> Мир/Вселенная:</label>
+                        <select id="characterWorld">
+                            <option value="">Выберите вселенную</option>
+                            <option value="fantasy">Фэнтези</option>
+                            <option value="scifi">Научная фантастика</option>
+                            <option value="postapoc">Постапокалипсис</option>
+                            <option value="modern">Современность</option>
+                            <option value="cyberpunk">Киберпанк</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterRace"><i class="fas fa-paw"></i> Раса/Вид:</label>
+                        <input type="text" id="characterRace" placeholder="Например: человек, эльф, андроид">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterAppearance"><i class="fas fa-eye"></i> Внешность:</label>
+                        <textarea id="characterAppearance" rows="3" placeholder="Описание внешности персонажа"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterPersonality"><i class="fas fa-brain"></i> Характер:</label>
+                        <textarea id="characterPersonality" rows="3" placeholder="Черты характера, привычки, особенности"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterHistory"><i class="fas fa-scroll"></i> История:</label>
+                        <textarea id="characterHistory" rows="4" placeholder="Прошлое персонажа, ключевые события жизни"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterAbilities"><i class="fas fa-fire"></i> Способности/Навыки:</label>
+                        <textarea id="characterAbilities" rows="3" placeholder="Особые умения, магия, техника"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="characterImage"><i class="fas fa-image"></i> Изображение (URL):</label>
+                        <input type="text" id="characterImage" placeholder="Ссылка на изображение персонажа">
+                        <small>Можно загрузить изображение на <a href="https://imgbb.com/" target="_blank">imgbb.com</a> и вставить ссылку</small>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button id="previewBtn" class="btn preview-btn"><i class="fas fa-eye"></i> Предпросмотр</button>
+                        <button id="saveBtn" class="btn save-btn"><i class="fas fa-save"></i> Сохранить анкету</button>
+                        <button id="resetBtn" class="btn reset-btn"><i class="fas fa-redo"></i> Очистить</button>
+                        <button id="exportBtn" class="btn export-btn"><i class="fas fa-file-export"></i> Экспорт в PNG</button>
+                    </div>
+                </div>
+                
+                <div class="preview-container">
+                    <h2><i class="fas fa-file-alt"></i> Предпросмотр анкеты</h2>
+                    <div id="preview" class="preview-card">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-user-circle"></i>
+                            <p>Здесь будет отображаться ваша анкета</p>
+                        </div>
+                    </div>
+                    
+                    <div class="saved-ankets">
+                        <h3><i class="fas fa-history"></i> Сохраненные анкеты</h3>
+                        <div id="savedList" class="saved-list">
+                            <!-- Здесь будут отображаться сохраненные анкеты -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions">
+                <h2><i class="fas fa-info-circle"></i> Как использовать</h2>
+                <div class="instructions-grid">
+                    <div class="instruction-card">
+                        <i class="fas fa-edit"></i>
+                        <h3>1. Заполните форму</h3>
+                        <p>Введите данные вашего персонажа во всех полях слева</p>
+                    </div>
+                    <div class="instruction-card">
+                        <i class="fas fa-eye"></i>
+                        <h3>2. Предпросмотр</h3>
+                        <p>Нажмите "Предпросмотр" для просмотра оформленной анкеты</p>
+                    </div>
+                    <div class="instruction-card">
+                        <i class="fas fa-save"></i>
+                        <h3>3. Сохраните</h3>
+                        <p>Сохраните анкету для использования в ролевой игре</p>
+                    </div>
+                    <div class="instruction-card">
+                        <i class="fas fa-share-alt"></i>
+                        <h3>4. Поделитесь</h3>
+                        <p>Экспортируйте в PNG или скопируйте ссылку на анкету</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>RP Quest - создано для ролевых игр | Работает на GitHub Pages</p>
+            <div class="footer-links">
+                <a href="#" id="shareBtn"><i class="fas fa-share"></i> Поделиться сайтом</a>
+                <a href="#" id="printBtn"><i class="fas fa-print"></i> Печать</a>
+                <a href="https://github.com" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>
