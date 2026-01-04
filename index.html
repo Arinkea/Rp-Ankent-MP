@@ -3,140 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RP Quest - Создание анкет для ролевых игр</title>
+    <title>ARMA 3 RP - Система досье</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-dragon"></i> RP Quest</h1>
-            <p class="subtitle">Создание профессиональных анкет для ролевых игр</p>
-        </header>
+    <div class="terminal-screen">
+        <div class="scanlines"></div>
+        <div class="container">
+            <!-- Шапка системы -->
+            <header class="system-header">
+                <div class="header-left">
+                    <div class="logo">
+                        <i class="fas fa-military-base"></i>
+                        <span>ARMA 3 RP</span>
+                    </div>
+                    <div class="system-info">
+                        <div class="status-indicator">
+                            <div class="status-led active"></div>
+                            <span>СИСТЕМА ДОСЬЕ</span>
+                        </div>
+                        <div class="timestamp" id="currentTime">--:--:--</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <i class="fas fa-user-secret"></i>
+                        <span>OPERATOR</span>
+                    </div>
+                    <div class="clearance-level">
+                        <span>УРОВЕНЬ ДОСТУПА:</span>
+                        <span class="level">ALPHA</span>
+                    </div>
+                </div>
+            </header>
 
-        <main>
-            <div class="creator-section">
-                <div class="form-container">
-                    <h2><i class="fas fa-user-edit"></i> Создание анкеты персонажа</h2>
-                    
-                    <div class="form-group">
-                        <label for="characterName"><i class="fas fa-user"></i> Имя персонажа:</label>
-                        <input type="text" id="characterName" placeholder="Введите имя персонажа">
+            <!-- Основной интерфейс -->
+            <main class="main-interface">
+                <!-- Левая панель - Список досье -->
+                <section class="dossier-list-panel">
+                    <div class="panel-header">
+                        <i class="fas fa-folder-open"></i>
+                        <h2>АКТИВНЫЕ ДОСЬЕ</h2>
+                        <div class="counter" id="dossierCount">0</div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="characterAge"><i class="fas fa-birthday-cake"></i> Возраст:</label>
-                        <input type="number" id="characterAge" placeholder="Возраст персонажа">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="ПОИСК ДОСЬЕ...">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="characterWorld"><i class="fas fa-globe"></i> Мир/Вселенная:</label>
-                        <select id="characterWorld">
-                            <option value="">Выберите вселенную</option>
-                            <option value="fantasy">Фэнтези</option>
-                            <option value="scifi">Научная фантастика</option>
-                            <option value="postapoc">Постапокалипсис</option>
-                            <option value="modern">Современность</option>
-                            <option value="cyberpunk">Киберпанк</option>
-                            <option value="other">Другое</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="characterRace"><i class="fas fa-paw"></i> Раса/Вид:</label>
-                        <input type="text" id="characterRace" placeholder="Например: человек, эльф, андроид">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="characterAppearance"><i class="fas fa-eye"></i> Внешность:</label>
-                        <textarea id="characterAppearance" rows="3" placeholder="Описание внешности персонажа"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="characterPersonality"><i class="fas fa-brain"></i> Характер:</label>
-                        <textarea id="characterPersonality" rows="3" placeholder="Черты характера, привычки, особенности"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="characterHistory"><i class="fas fa-scroll"></i> История:</label>
-                        <textarea id="characterHistory" rows="4" placeholder="Прошлое персонажа, ключевые события жизни"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="characterAbilities"><i class="fas fa-fire"></i> Способности/Навыки:</label>
-                        <textarea id="characterAbilities" rows="3" placeholder="Особые умения, магия, техника"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="characterImage"><i class="fas fa-image"></i> Изображение (URL):</label>
-                        <input type="text" id="characterImage" placeholder="Ссылка на изображение персонажа">
-                        <small>Можно загрузить изображение на <a href="https://imgbb.com/" target="_blank">imgbb.com</a> и вставить ссылку</small>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button id="previewBtn" class="btn preview-btn"><i class="fas fa-eye"></i> Предпросмотр</button>
-                        <button id="saveBtn" class="btn save-btn"><i class="fas fa-save"></i> Сохранить анкету</button>
-                        <button id="resetBtn" class="btn reset-btn"><i class="fas fa-redo"></i> Очистить</button>
-                        <button id="exportBtn" class="btn export-btn"><i class="fas fa-file-export"></i> Экспорт в PNG</button>
-                    </div>
-                </div>
-                
-                <div class="preview-container">
-                    <h2><i class="fas fa-file-alt"></i> Предпросмотр анкеты</h2>
-                    <div id="preview" class="preview-card">
-                        <div class="preview-placeholder">
-                            <i class="fas fa-user-circle"></i>
-                            <p>Здесь будет отображаться ваша анкета</p>
+                    <div class="dossier-list" id="dossierList">
+                        <!-- Досье будут загружаться здесь -->
+                        <div class="empty-state">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Досье не найдены</p>
                         </div>
                     </div>
                     
-                    <div class="saved-ankets">
-                        <h3><i class="fas fa-history"></i> Сохраненные анкеты</h3>
-                        <div id="savedList" class="saved-list">
-                            <!-- Здесь будут отображаться сохраненные анкеты -->
+                    <div class="list-actions">
+                        <button class="btn btn-primary" id="newDossierBtn">
+                            <i class="fas fa-plus-circle"></i>
+                            НОВОЕ ДОСЬЕ
+                        </button>
+                        <button class="btn btn-secondary" id="importBtn">
+                            <i class="fas fa-file-import"></i>
+                            ИМПОРТ
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Центральная панель - Просмотр/Создание досье -->
+                <section class="dossier-viewer-panel" id="viewerPanel">
+                    <div class="panel-header">
+                        <i class="fas fa-file-contract"></i>
+                        <h2>ПРОСМОТР ДОСЬЕ</h2>
+                        <div class="view-mode">
+                            <span id="viewMode">ПРОСМОТР</span>
                         </div>
                     </div>
+                    
+                    <!-- Режим просмотра -->
+                    <div class="dossier-display" id="dossierDisplay">
+                        <div class="empty-view">
+                            <div class="terminal-icon">
+                                <i class="fas fa-user-secret"></i>
+                            </div>
+                            <h3>ДОСЬЕ НЕ ВЫБРАНО</h3>
+                            <p>Выберите досье из списка или создайте новое</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Режим создания/редактирования -->
+                    <div class="dossier-editor" id="dossierEditor" style="display: none;">
+                        <form id="dossierForm">
+                            <div class="form-grid">
+                                <!-- Основная информация -->
+                                <div class="form-section">
+                                    <h3><i class="fas fa-id-card"></i> ОСНОВНАЯ ИНФОРМАЦИЯ</h3>
+                                    <div class="form-group">
+                                        <label for="callSign">ПОЗЫВНОЙ *</label>
+                                        <input type="text" id="callSign" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="fullName">ПОЛНОЕ ИМЯ</label>
+                                            <input type="text" id="fullName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="age">ВОЗРАСТ</label>
+                                            <input type="number" id="age" min="18" max="60">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="faction">ФРАКЦИЯ</label>
+                                            <select id="faction">
+                                                <option value="">ВЫБЕРИТЕ ФРАКЦИЮ</option>
+                                                <option value="NATO">НАТО (BLUFOR)</option>
+                                                <option value="CSAT">КСАТ (OPFOR)</option>
+                                                <option value="AAF">AAF (INDEP)</option>
+                                                <option value="CIV">ГРАЖДАНСКИЙ</option>
+                                                <option value="REBEL">ПОВСТАНЦЫ</option>
+                                                <option value="MERC">НАЕМНИКИ</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="role">РОЛЬ</label>
+                                            <select id="role">
+                                                <option value="">ВЫБЕРИТЕ РОЛЬ</option>
+                                                <option value="COMMANDER">КОМАНДИР</option>
+                                                <option value="MEDIC">МЕДИК</option>
+                                                <option value="ENGINEER">ИНЖЕНЕР</option>
+                                                <option value="RIFLEMAN">СТРЕЛОК</option>
+                                                <option value="SNIPER">СНАЙПЕР</option>
+                                                <option value="PILOT">ПИЛОТ</option>
+                                                <option value="DRIVER">ВОДИТЕЛЬ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Тактическая информация -->
+                                <div class="form-section">
+                                    <h3><i class="fas fa-crosshairs"></i> ТАКТИЧЕСКИЕ ДАННЫЕ</h3>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="specialization">СПЕЦИАЛИЗАЦИЯ</label>
+                                            <input type="text" id="specialization" placeholder="Например: Разведка, Связь">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="skillLevel">УРОВЕНЬ ПОДГОТОВКИ</label>
+                                            <select id="skillLevel">
+                                                <option value="RECRUIT">НОВОБРАНЕЦ</option>
+                                                <option value="REGULAR">РЯДОВОЙ</option>
+                                                <option value="VETERAN" selected>ВЕТЕРАН</option>
+                                                <option value="ELITE">ЭЛИТА</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="equipment">СТАНДАРТНОЕ СНАРЯЖЕНИЕ</label>
+                                        <textarea id="equipment" rows="3" placeholder="Оружие, броня, специальное снаряжение"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Биография -->
+                                <div class="form-section">
+                                    <h3><i class="fas fa-scroll"></i> БИОГРАФИЯ</h3>
+                                    <div class="form-group">
+                                        <label for="background">ПРОШЛОЕ ДО СЛУЖБЫ</label>
+                                        <textarea id="background" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="serviceRecord">БОЕВОЙ ОПЫТ</label>
+                                        <textarea id="serviceRecord" rows="3" placeholder="Операции, миссии, награды"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="personality">ПСИХОЛОГИЧЕСКИЙ ПРОФИЛЬ</label>
+                                        <textarea id="personality" rows="2"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Внешность -->
+                                <div class="form-section">
+                                    <h3><i class="fas fa-user"></i> ВНЕШНОСТЬ</h3>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="height">РОСТ (см)</label>
+                                            <input type="number" id="height" min="150" max="210">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="weight">ВЕС (кг)</label>
+                                            <input type="number" id="weight" min="50" max="120">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="appearance">ОПИСАНИЕ ВНЕШНОСТИ</label>
+                                        <textarea id="appearance" rows="2" placeholder="Цвет волос, глаз, особые приметы"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="uniform">СТАНДАРТНАЯ ФОРМА</label>
+                                        <input type="text" id="uniform" placeholder="Например: Multicam, Gorka">
+                                    </div>
+                                </div>
+
+                                <!-- Изображение -->
+                                <div class="form-section">
+                                    <h3><i class="fas fa-camera"></i> ИДЕНТИФИКАЦИЯ</h3>
+                                    <div class="image-upload">
+                                        <div class="upload-area" id="uploadArea">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <p>ПЕРЕТАЩИТЕ ИЗОБРАЖЕНИЕ ИЛИ НАЖМИТЕ ДЛЯ ЗАГРУЗКИ</p>
+                                            <input type="file" id="imageUpload" accept="image/*" hidden>
+                                        </div>
+                                        <div class="image-preview" id="imagePreview" style="display: none;">
+                                            <img id="previewImage" src="" alt="Preview">
+                                            <button type="button" class="btn-remove" id="removeImage">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="steamId">STEAM ID / DISCORD</label>
+                                        <input type="text" id="steamId" placeholder="Для связи">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Кнопки действий -->
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancelEdit">
+                                    <i class="fas fa-times"></i>
+                                    ОТМЕНА
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="saveDossier">
+                                    <i class="fas fa-save"></i>
+                                    СОХРАНИТЬ ДОСЬЕ
+                                </button>
+                                <button type="button" class="btn btn-export" id="exportBtn">
+                                    <i class="fas fa-file-export"></i>
+                                    ЭКСПОРТ В PNG
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Правая панель - Информация и статистика -->
+                <section class="info-panel">
+                    <div class="panel-header">
+                        <i class="fas fa-chart-bar"></i>
+                        <h2>СТАТИСТИКА</h2>
+                    </div>
+                    
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>АКТИВНЫЕ АГЕНТЫ</h3>
+                                <div class="stat-value" id="activeAgents">0</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>ФРАКЦИИ</h3>
+                                <div class="faction-stats" id="factionStats">
+                                    <!-- Статистика фракций -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>СРЕДНИЙ УРОВЕНЬ</h3>
+                                <div class="stat-value" id="avgSkill">N/A</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <h3><i class="fas fa-bolt"></i> БЫСТРЫЕ ДЕЙСТВИЯ</h3>
+                        <button class="btn-action" id="quickView">
+                            <i class="fas fa-eye"></i>
+                            БЫСТРЫЙ ПРОСМОТР
+                        </button>
+                        <button class="btn-action" id="printDossier">
+                            <i class="fas fa-print"></i>
+                            ПЕЧАТЬ ДОСЬЕ
+                        </button>
+                        <button class="btn-action" id="shareDossier">
+                            <i class="fas fa-share-alt"></i>
+                            ПОДЕЛИТЬСЯ
+                        </button>
+                        <button class="btn-action" id="clearAll">
+                            <i class="fas fa-trash-alt"></i>
+                            ОЧИСТИТЬ БАЗУ
+                        </button>
+                    </div>
+                    
+                    <div class="system-log">
+                        <h3><i class="fas fa-terminal"></i> СИСТЕМНЫЙ ЖУРНАЛ</h3>
+                        <div class="log-entries" id="systemLog">
+                            <div class="log-entry">
+                                <span class="log-time">[12:34:21]</span>
+                                <span class="log-text">СИСТЕМА ИНИЦИАЛИЗИРОВАНА</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Нижняя панель статуса -->
+            <footer class="status-bar">
+                <div class="status-message" id="statusMessage">
+                    СИСТЕМА ГОТОВА К РАБОТЕ
                 </div>
-            </div>
-            
-            <div class="instructions">
-                <h2><i class="fas fa-info-circle"></i> Как использовать</h2>
-                <div class="instructions-grid">
-                    <div class="instruction-card">
-                        <i class="fas fa-edit"></i>
-                        <h3>1. Заполните форму</h3>
-                        <p>Введите данные вашего персонажа во всех полях слева</p>
+                <div class="status-controls">
+                    <div class="memory-usage">
+                        <i class="fas fa-microchip"></i>
+                        <span>ПАМЯТЬ: <span id="memoryUsage">--%</span></span>
                     </div>
-                    <div class="instruction-card">
-                        <i class="fas fa-eye"></i>
-                        <h3>2. Предпросмотр</h3>
-                        <p>Нажмите "Предпросмотр" для просмотра оформленной анкеты</p>
-                    </div>
-                    <div class="instruction-card">
-                        <i class="fas fa-save"></i>
-                        <h3>3. Сохраните</h3>
-                        <p>Сохраните анкету для использования в ролевой игре</p>
-                    </div>
-                    <div class="instruction-card">
-                        <i class="fas fa-share-alt"></i>
-                        <h3>4. Поделитесь</h3>
-                        <p>Экспортируйте в PNG или скопируйте ссылку на анкету</p>
+                    <div class="connection-status">
+                        <div class="connection-led connected"></div>
+                        <span>ONLINE</span>
                     </div>
                 </div>
-            </div>
-        </main>
-        
-        <footer>
-            <p>RP Quest - создано для ролевых игр | Работает на GitHub Pages</p>
-            <div class="footer-links">
-                <a href="#" id="shareBtn"><i class="fas fa-share"></i> Поделиться сайтом</a>
-                <a href="#" id="printBtn"><i class="fas fa-print"></i> Печать</a>
-                <a href="https://github.com" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-            </div>
-        </footer>
+            </footer>
+        </div>
     </div>
-    
-    <script src="script.js"></script>
+
+    <!-- Модальное окно подтверждения -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> ПОДТВЕРЖДЕНИЕ</h3>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">Вы уверены?</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="modalCancel">ОТМЕНА</button>
+                <button class="btn btn-danger" id="modalConfirm">ПОДТВЕРДИТЬ</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
