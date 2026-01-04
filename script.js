@@ -128,3 +128,143 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             </div>
+        `;
+    }
+    
+    // Получаем название вселенной
+    function getWorldName(worldKey) {
+        const worlds = {
+            'fantasy': 'Фэнтези',
+            'scifi': 'Научная фантастика',
+            'postapoc': 'Постапокалипсис',
+            'modern': 'Современность',
+            'cyberpunk': 'Киберпанк',
+            'other': 'Другая вселенная'
+        };
+        
+        return worlds[worldKey] || worldKey;
+    }
+    
+    // Сохраняем анкету
+    function saveAnket() {
+        if (!characterName.value.trim()) {
+            alert('Пожалуйста, введите имя персонажа');
+            characterName.focus();
+            return;
+        }
+        
+        const anket = {
+            id: Date.now(),
+            name: characterName.value,
+            age: characterAge.value,
+            world: characterWorld.value,
+            race: characterRace.value,
+            appearance: characterAppearance.value,
+            personality: characterPersonality.value,
+            history: characterHistory.value,
+            abilities: characterAbilities.value,
+            image: characterImage.value,
+            timestamp: new Date().toISOString()
+        };
+        
+        savedAnkets.push(anket);
+        localStorage.setItem('rpAnkets', JSON.stringify(savedAnkets));
+        
+        displaySavedAnkets();
+        
+        alert(`Анкета "${characterName.value}" успешно сохранена!`);
+    }
+    
+    // Сбрасываем форму
+    function resetForm() {
+        if (confirm('Вы уверены, что хотите очистить все поля?')) {
+            characterName.value = '';
+            characterAge.value = '';
+            characterWorld.value = '';
+            characterRace.value = '';
+            characterAppearance.value = '';
+            characterPersonality.value = '';
+            characterHistory.value = '';
+            characterAbilities.value = '';
+            characterImage.value = '';
+            
+            previewContainer.innerHTML = `
+                <div class="preview-placeholder">
+                    <i class="fas fa-user-circle"></i>
+                    <p>Здесь будет отображаться ваша анкета</p>
+                </div>
+            `;
+        }
+    }
+    
+    // Экспортируем анкету как изображение
+    function exportAsImage() {
+        const anketElement = previewContainer.querySelector('.anket-display');
+        
+        if (!anketElement) {
+            alert('Сначала создайте анкету и нажмите "Предпросмотр"');
+            return;
+        }
+        
+        html2canvas(anketElement).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `rp_anket_${characterName.value || 'персонаж'}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    }
+    
+    // Поделиться сайтом
+    function shareSite() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'RP Quest - Создание анкет для ролевых игр',
+                text: 'Создавайте профессиональные анкеты для персонажей ролевых игр!',
+                url: window.location.href
+            });
+        } else {
+            // Копируем ссылку в буфер обмена
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => alert('Ссылка скопирована в буфер обмена! Поделитесь ей с друзьями.'));
+        }
+    }
+    
+    // Назначаем обработчики событий
+    previewBtn.addEventListener('click', updatePreview);
+    saveBtn.addEventListener('click', saveAnket);
+    resetBtn.addEventListener('click', resetForm);
+    exportBtn.addEventListener('click', exportAsImage);
+    shareBtn.addEventListener('click', shareSite);
+    printBtn.addEventListener('click', () => window.print());
+    
+    // Загружаем сохраненные анкеты при загрузке страницы
+    displaySavedAnkets();
+    
+    // Обновляем предпросмотр при изменении полей
+    const formInputs = document.querySelectorAll('input, select, textarea');
+    formInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            // Авто-предпросмотр с задержкой (чтобы не нагружать при каждом нажатии клавиши)
+            clearTimeout(window.previewTimeout);
+            window.previewTimeout = setTimeout(updatePreview, 500);
+        });
+    });
+    
+    // Инициализация предпросмотра с примером
+    setTimeout(() => {
+        if (savedAnkets.length === 0) {
+            // Заполняем форму примером для демонстрации
+            characterName.value = 'Элриан Вестфолл';
+            characterAge.value = '27';
+            characterWorld.value = 'fantasy';
+            characterRace.value = 'Полуэльф';
+            characterAppearance.value = 'Высокий, стройный мужчина с серебристыми волосами до плеч и ярко-зелеными глазами. На левой щеке шрам от когтей дракона. Носит практичную кожаную броню и темно-зеленый плащ.';
+            characterPersonality.value = 'Сдержанный, наблюдательный, обладает острым чувством справедливости. Не доверяет незнакомцам, но верен друзьям. Имеет саркастичное чувство юмора.';
+            characterHistory.value = 'Родился в смешанном браке эльфа и человека. В юности обучался магии у эльфийских мастеров, но покинул родные края после нападения дракона на свою деревню. С тех пор странствует в поисках способа отомстить за гибель семьи.';
+            characterAbilities.value = 'Базовое владение магией стихий, особенно воздуха и земли. Искусный фехтовальщик. Умеет читать следы и выживать в дикой природе. Знает древние языки.';
+            characterImage.value = 'https://i.pinimg.com/736x/3c/3a/6f/3c3a6f2c4e5c8b5c5c5c5c5c5c5c5c5c.jpg';
+            
+            updatePreview();
+        }
+    }, 1000);
+});
